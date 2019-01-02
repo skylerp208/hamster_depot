@@ -1,0 +1,2 @@
+class Hamster < ApplicationRecord
+end

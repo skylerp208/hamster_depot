@@ -1,0 +1,122 @@
+* {
+  font-family: arial
+}
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background-color: white
+}
+
+
+#top-bar {
+  font-family: 'Stardos Stencil', cursive;
+  background-color: #FA6304;
+  font-size: 40px;
+  color: white;
+  padding-top: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+  border-bottom: 1px solid white ;
+  margin: 0;
+
+
+}
+
+
+#nav-bar {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #FA6304;
+
+}
+.nav{
+  float: left;
+
+}
+
+.nav-a {
+  font-family: 'Stardos Stencil', cursive;
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 10px 16px;
+  text-decoration: none;
+}
+
+.nav-a:hover {
+  background-color: #E15200;
+}
+
+#make-a-ham {
+  display: none
+}
+
+#hamster-list {
+  list-style: none;
+  /* padding-left: 1px */
+}
+
+
+img {
+  width:8em;
+  height: 8em;
+  border-radius: 45%
+}
+
+#hams {
+  position: relative;
+  background-color: #FA6304;
+  width: 40%;
+  margin-left: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  top: 20px
+}
+.listed-ham {
+  text-align: center;
+  width:20%
+}
+
+.a-ham {
+  text-decoration: none;
+  color: white
+}
+
+
+#hamster-card {
+  display: none;
+  position: relative;
+  background-color: #FA6304;
+  margin-left: 10px;
+  width: 50%;
+  height: 50%;
+  top: 20px;
+  padding: 5px 5px;
+  color: white
+}
+
+#create-form {
+  display: none;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  margin-top: 10px;
+  margin-left: 10px;
+  width: 40%;
+  background-color:  #FA6304
+}
+
+#edit-form {
+  display: none;
+  position: relative;
+  background-color: #FA6304;
+  margin-top: 10px;
+  /* width: 75%; */
+  height: 25%;
+  top: 20px;
+  padding: 5px 5px;
+  color: white
+
+}

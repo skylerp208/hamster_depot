@@ -1,0 +1,31 @@
+{
+  "hamsters": [
+    {
+      "name": "Marv",
+      "image": "https://3c1703fe8d.site.internapcdn.net/newman/gfx/news/hires/2017/theusuallycu.jpg",
+      "id": 6
+    },
+    {
+      "name": "Skyler",
+      "image": "https://vetstreet-brightspot.s3.amazonaws.com/d9/00/32f17d09417d959a2ae35e479ddb/hamster-in-a-cage-thinkstockphotos-146960067.jpg",
+      "id": 7
+    },
+    {
+      "name": "Vicky",
+      "image": "https://cdn3.bigcommerce.com/s-nadnq/product_images/uploaded_images/16.jpg",
+      "id": 8
+    },
+    {
+      "name": "nj",
+      "image": "kln",
+      "apiId": "v1",
+      "id": 9
+    },
+    {
+      "name": "Skyler ",
+      "image": "https://www.thesprucepets.com/thmb/ge_ZS3DrLEhSD-RbG9jwScNNUw0=/450x0/filters:no_upscale():max_bytes(150000):strip_icc()/a0047-000145-56a2bce25f9b58b7d0cdf7cf.jpg",
+      "apiId": "v1",
+      "id": 10
+    }
+  ]
+}
