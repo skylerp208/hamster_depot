@@ -4,34 +4,38 @@ document.addEventListener('DOMContentLoaded', () => {
 
   document.querySelector('#create-link').addEventListener('click', popCreate)
 
-  document.querySelector('#hams').addEventListener('click', showHam)
-
   document.querySelector('#home-link').addEventListener('click', renderHamsters)
 
   document.querySelector('#create-form').addEventListener('submit', makeHam)
 
-  document.querySelector('#edit-button').addEventListener('click', showEditForm)
+  document.querySelector('#hams').addEventListener('click', handleClick)
 
   document.querySelector('#edit-form').addEventListener('submit', editHam)
 
-  document.querySelector('#release-button').addEventListener('click', releaseHam)
+  document.getElementsByClassName("close")[0].addEventListener('click', (e) => {
+    document.querySelector('.modal').style.display = 'none'
+  })
 
+  document.querySelector('#hams').addEventListener('keypress', handleEnter)
 
 })
 
-function releaseHam(e) {
 
-  fetch (`http://localhost:3000/api/v1/hamsters/${e.target.parentElement.dataset.id}`, {
+
+function releaseHam(id) {
+  fetch (`http://localhost:3000/api/v1/hamsters/${id}`, {
     method: "DELETE"
   })
-  document.querySelectorAll(`[data-id="${e.target.parentElement.dataset.id}"]`)[0].remove()
+
+  document.querySelector(`[data-id="${id}"]`).remove()
   document.querySelector('#hamster-card').style.display = 'none'
-  document.querySelector('#hams').style.display = 'block'
+  document.querySelector('#hams').style.display = 'flex'
 }
 
 function editHam(e) {
   e.preventDefault()
-  fetch(`http://localhost:3000/api/v1/hamsters/${e.target.parentElement.dataset.id}`, {
+  debugger
+  fetch(`http://localhost:3000/api/v1/hamsters/${e.target.dataset.id}`, {
     method: "PATCH",
     headers: {
       'Content-type': "application/json",
@@ -44,28 +48,18 @@ function editHam(e) {
   })
   .then(res => res.json())
   .then(data => {
-    document.querySelector('#hamster-name').innerText = data.name
-    document.querySelector('#hamster-img').src = data.image
+    renderHamsters()
     clearEditForm()
   })
 
 }
 
-function showEditForm(e) {
-  document.querySelector("#edit-form").style.display = 'block'
-  populateEditForm(e)
-  document.querySelector('#create-form').style.display = 'none'
-}
 
-function populateEditForm(e) {
-  document.querySelector('#edit-form').Name.value =         e.target.parentElement.children[0].innerText
-  document.querySelector('#edit-form').Img.value = e.target.parentElement.children[1].src
-}
 
 function clearEditForm() {
   document.querySelector('#edit-form').Name.value = ''
   document.querySelector('#edit-form').Img.value = ''
-  document.querySelector('#edit-form').style.display = 'none'
+  document.querySelector('.modal').style.display = 'none'
 }
 
 function makeHam(e) {
@@ -83,15 +77,42 @@ function makeHam(e) {
   })
   .then(res => res.json())
   .then(data => appendHamster(data))
+
 }
 
 function appendHamster(data) {
-  let newHam = document.createElement('li')
+  let newHam = document.createElement('div')
   newHam.dataset.id = data.id
-  newHam.classList.add('listed-ham')
+  newHam.classList = 'ui card'
   newHam.innerHTML =
-  `<a class = 'a-ham' href = #> ${data.name}<img class = 'ham-img' src=${data.image}> </a>`
-  document.querySelector('#hamster-list').append(newHam)
+  `
+      <div class = 'image'>
+        <img class = 'ham-img' src=${data.image}>
+      </div>
+      <div class = 'content'>
+        <div class = 'header'> ${data.name} </div>
+      </div>
+      <div class="content">
+        <i class="comment icon"></i>
+        ${data.comments.length}
+        <ul class ='comments-list'>
+        </ul>
+      </div>
+
+      <div class="extra content">
+        <div class="ui large transparent left icon input">
+          <input class ='add-comment' type="text" name='comment' placeholder="Add Comment...">
+        </div> <br> <br>
+        <div class = "ui icon buttons">
+          <button type='button' class="ui button edit"><i class="edit icon"></i> </button>
+          <button type='button' class="ui button trash"><i class="trash icon"></i> </button>
+        </div>
+      </div>
+  `
+  document.querySelector('#hams').append(newHam)
+  data.comments.forEach((comment) => renderComments(comment))
+  document.querySelector('#create-form').Name.value = ''
+  document.querySelector('#create-form').Img.value = ''
   document.querySelector('#create-form').style.display = 'none'
 
 }
@@ -99,39 +120,115 @@ function appendHamster(data) {
 function popCreate(event) {
   document.querySelector('#create-form').style.display = 'block'
   document.querySelector('#edit-form').style.display = 'none'
-  document.querySelector('#hamster-card').style.display = 'none'
-  document.querySelector('#hams').style.display = 'block'
+  document.querySelector('#hams').style.display = 'flex'
 }
 
 function domReset(event) {
-  document.querySelector('#hams').style.display = 'block'
-  document.querySelector('#hamster-card').style.display = 'none'
+  document.querySelector('#hams').style.display = 'flex'
   document.querySelector('#create-form').style.display = 'none'
 
 }
 
 function renderHamsters() {
-  let ul = document.getElementById("hamster-list");
-    while(ul.firstChild) ul.removeChild(ul.firstChild)
+  document.querySelector('#hams').innerHTML = ''
   fetch("http://localhost:3000/api/v1/hamsters")
   .then(res=>res.json())
   .then(data =>
     data.forEach((hamster) => {
       appendHamster(hamster)
-      document.querySelector('#hams').style.display = 'block'
-      document.querySelector('#hamster-card').style.display = 'none'
+      document.querySelector('#hams').style.display = 'flex'
     })
   )
-}
-
-function showHam(event) {
-  if ( event.target.classList.contains('a-ham')) {
-    document.querySelector('#create-form').style.display = 'none'
-    document.querySelector('#hams').style.display = 'none'
-    clearEditForm()
-    document.querySelector('#hamster-card').style.display = 'block'
-    document.querySelector('#hamster-card').dataset.id = event.target.parentElement.dataset.id
-    document.querySelector('#hamster-name').innerText = event.target.innerText
-    document.querySelector('#hamster-img').src = event.target.firstElementChild.src
   }
-}
+
+
+
+  function handleClick(e) {
+    if (e.target.classList.contains('trash') ) {
+       findIDandRelease(e.target)
+    }
+    else if (e.target.classList.contains('edit') ) {
+      findIDandEdit(e.target)
+    }
+    else if (e.target.className === 'comment icon') {
+       toggleComments(e.target)
+    }
+  }
+
+    function findIDandRelease(element) {
+      if (element.hasAttribute('data-id') == true) {
+         let id = element.dataset.id
+         releaseHam(id)
+      }
+        else {
+        findIDandRelease(element.parentElement)
+      }
+    }
+
+
+    function findIDandEdit(element) {
+      if (element.hasAttribute('data-id') == true) {
+         let id = element.dataset.id
+         showEditForm(id)
+      }
+        else {
+        findIDandEdit(element.parentElement)
+      }
+    }
+
+
+    function showEditForm(id) {
+      img = document.querySelector(`[data-id="${id}"]`).children[0].firstElementChild.src
+      name = document.querySelector(`[data-id="${id}"]`).children[1].firstElementChild.innerText
+      document.querySelector('.modal').style.display = 'block'
+      populateEdit(img, name, id)
+    }
+
+    function populateEdit(img, name, id) {
+      document.querySelector('#edit-form').Name.value = name
+      document.querySelector('#edit-form').Img.value = img
+      document.querySelector('#edit-form').dataset.id = id
+    }
+
+
+    function handleEnter(e) {
+      if (e.target.className === 'add-comment' && e.keyCode ===13) {
+        // debugger
+        fetch('http://localhost:3000/api/v1/comments', {
+          method: "POST",
+          headers: {
+            'Content-type': "application/json",
+            'Accepts' : "application/json"
+          },
+          body: JSON.stringify({
+            'content' : `${e.target.value}`,
+            'hamster_id' : e.target.parentElement.parentElement.parentElement.dataset.id
+        })
+      })
+      .then(res => res.json())
+      .then(data => renderComments(data))
+      e.target.parentElement.parentElement.parentElement.children[2].children[1].style.display = 'block'
+      e.target.value = ''
+    }
+  }
+
+
+  function toggleComments(target) {
+
+    if (target.parentElement.children[1].style.display === "" || target.parentElement.children[1].style.display === "none") {
+      // debugger
+      target.parentElement.children[1].style.display = 'block'
+    }
+    else {
+      target.parentElement.children[1].style.display ='none'
+    }
+  }
+
+
+
+  function renderComments(comment) {
+    li = document.createElement('li')
+    li.innerText= comment.content
+    document.querySelector(`[data-id="${comment.hamster_id}"]`).children[2].children[1].append(li)
+
+  }

@@ -3,6 +3,13 @@
   <title>Hamster Depot</title>
   <link href="https://fonts.googleapis.com/css?family=Stardos+Stencil:700" rel="stylesheet">
   <script type="text/javascript" src = src/index.js>  </script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.3.3/dist/semantic.min.css">
+
+	<script
+	  src="https://code.jquery.com/jquery-3.1.1.min.js"
+	  integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+	  crossorigin="anonymous"></script>
+ <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.3.3/dist/semantic.min.js"></script>
   <link rel="stylesheet" href=index.css>
 </header>
 
@@ -13,6 +20,18 @@
     <li class='nav'><a id='home-link' class ='nav-a'href="#"> Home</a></li>
     <li class='nav'><a id='create-link' class='nav-a' href="#">Create Hamster</a></li>
   </ul>
+  <div  class="modal">
+    <div class="modal-content">
+       <span class="close">&times;</span>
+      <form  id = "edit-form"method="post">
+        <label for="Name"> Name</label>
+        <input type="text" name="Name" value=""> <br>
+        <label for="Img"> Image</label>
+        <input type="text" name="Img" value=""> <br>
+        <input type='submit' value = 'Edit Hamster'>
+      </form>
+    </div>
+  </div>
 
   <form id = "create-form" method="post">
     <label for="Name"> Name</label>
@@ -23,33 +42,19 @@
   </form>
 
 
-  <div id= "hams">
-    <ul id= 'hamster-list'>
-    </ul>
+
+  <div id= "hams" class = "ui cards">
+
   </div>
 
 
-  <form id="make-a-ham" action="index.html" method="post">
+  <!-- <form id="make-a-ham" action="index.html" method="post">
     Hamster name <input type="text" name="name" value=""> <br>
     Hamster URL <input type="text" name="img" value="">  <br>
     <input type="submit" name="" value="make a hamster"> <br>
+  </form> -->
 
-  </form>
 
-  <div id='hamster-card'>
-    <h2 id = 'hamster-name'>Hamster's name</h2>
-
-    <img id= 'hamster-img' src="" alt=""> <br>
-    <button type="button" id = 'edit-button'>Edit Hamster</button>
-
-    <button type="button" id = 'release-button'>Release Hamster</button>
-    <form id = "edit-form" method="post">
-      <label for="Name"> Name</label>
-      <input type="text" name="Name" value=""> <br>
-      <label for="Img"> Image</label>
-      <input type="text" name="Img" value=""> <br>
-      <input type='submit' value = 'Edit Hamster'>
-    </form>
   </div>
 
 

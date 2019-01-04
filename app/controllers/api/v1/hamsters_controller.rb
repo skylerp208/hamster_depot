@@ -1,8 +1,12 @@
 class Api::V1::HamstersController < ApplicationController
-  before_action :find_hamster, only: [:update, :destroy]
+  before_action :find_hamster, only: [:show, :update, :destroy]
     def index
       @hamsters = Hamster.all
       render json: @hamsters
+    end
+
+    def show
+      render json: @hamster
     end
 
     def update
