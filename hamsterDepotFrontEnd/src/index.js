@@ -34,7 +34,7 @@ function releaseHam(id) {
 
 function editHam(e) {
   e.preventDefault()
-  debugger
+  // debugger
   fetch(`http://localhost:3000/api/v1/hamsters/${e.target.dataset.id}`, {
     method: "PATCH",
     headers: {
@@ -93,10 +93,12 @@ function appendHamster(data) {
         <div class = 'header'> ${data.name} </div>
       </div>
       <div class="content">
-        <i class="comment icon"></i>
-        ${data.comments.length}
-        <ul class ='comments-list'>
+      <i class="comment icon"></i>
+      <span> ${data.comments.length} </span>
+      <div class ='comments-list'>
+        <ul >
         </ul>
+      </div>
       </div>
 
       <div class="extra content">
@@ -207,7 +209,9 @@ function renderHamsters() {
       })
       .then(res => res.json())
       .then(data => renderComments(data))
-      e.target.parentElement.parentElement.parentElement.children[2].children[1].style.display = 'block'
+e.target.parentElement.parentElement.parentElement.children[2].children[1].innerText ++
+      e.target.parentElement.parentElement.parentElement.children[2].children[2].style.display = 'block'
+
       e.target.value = ''
     }
   }
@@ -215,12 +219,12 @@ function renderHamsters() {
 
   function toggleComments(target) {
 
-    if (target.parentElement.children[1].style.display === "" || target.parentElement.children[1].style.display === "none") {
+    if (target.parentElement.children[2].style.display === "" || target.parentElement.children[2].style.display === "none") {
       // debugger
-      target.parentElement.children[1].style.display = 'block'
+      target.parentElement.children[2].style.display = 'block'
     }
     else {
-      target.parentElement.children[1].style.display ='none'
+      target.parentElement.children[2].style.display ='none'
     }
   }
 
@@ -229,6 +233,6 @@ function renderHamsters() {
   function renderComments(comment) {
     li = document.createElement('li')
     li.innerText= comment.content
-    document.querySelector(`[data-id="${comment.hamster_id}"]`).children[2].children[1].append(li)
+    document.querySelector(`[data-id="${comment.hamster_id}"]`).children[2].children[2].append(li)
 
   }
