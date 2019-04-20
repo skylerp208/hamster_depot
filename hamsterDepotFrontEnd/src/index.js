@@ -120,7 +120,13 @@ function appendHamster(data) {
 }
 
 function popCreate(event) {
-  document.querySelector('#create-form').style.display = 'block'
+  if (document.querySelector('#create-form').style.display = 'block') {
+    debugger
+    document.querySelector('#create-form').style.display = 'none'
+  } else {
+    debugger
+    document.querySelector('#create-form').style.display = 'block'
+  }
   document.querySelector('#edit-form').style.display = 'none'
   document.querySelector('#hams').style.display = 'flex'
 }
